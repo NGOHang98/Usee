@@ -86,8 +86,8 @@ def logistic_comparison_by_periods(logistic_df: pd.DataFrame, run_date: datetime
         raise ValueError('Invalid input')  
     result = []
     for feat in feats: 
-        history_df = logistic_df[(logistic_df['SAGYO_UNYO_DATE'] == history_day) & (logistic_df['CATE'] == feat)]
-        curr_df = logistic_df[(logistic_df['SAGYO_UNYO_DATE'] == run_date) & (logistic_df['CATE'] == feat)]
+        history_df = logistic_df[(logistic_df['SAGYO_UNYO_DATE'] == history_day) & (logistic_df['NIOKURI_NM'] == feat)]
+        curr_df = logistic_df[(logistic_df['SAGYO_UNYO_DATE'] == run_date) & (logistic_df['NIOKURI_NM'] == feat)]
         history_total = history_df.groupby('NIUKE_NM', as_index=False)['SGY_JSK_QTY'].sum()
         curr_total = curr_df.groupby('NIUKE_NM', as_index=False)['SGY_JSK_QTY'].sum()
         df = pd.merge(curr_total, history_total, on='NIUKE_NM', suffixes=('', '_prev')) 
@@ -102,7 +102,7 @@ def logistic_comparison_by_periods(logistic_df: pd.DataFrame, run_date: datetime
     print(top5)
     return top5
 # Example usage:
-top5 = logistic_comparison_by_periods(logistic_df=data, run_date=datetime(2023, 4, 15), type='prev_month', feats=['生活'])
+top5 = logistic_comparison_by_periods(logistic_df=data, run_date=datetime(2023, 4, 15), type='prev_month', feats=['近畿法人営業１課'])
 
 
 ### Visualization ###
